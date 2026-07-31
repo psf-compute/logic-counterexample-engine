@@ -10,6 +10,8 @@ from .expressions import (
     TruthAssignment,
     Var,
 )
+from .truth_table import build_truth_table, generate_assignments
+from .validity import ValidityResult, check_validity
 
 __all__ = [
     "Biconditional",
@@ -20,4 +22,8 @@ __all__ = [
     "Negation",
     "TruthAssignment",
     "Var",
+    "ValidityResult",
+    "build_truth_table",
+    "check_validity",
+    "generate_assignments",
 ]
