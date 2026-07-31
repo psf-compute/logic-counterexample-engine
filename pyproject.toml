@@ -14,6 +14,9 @@ authors = [
 ]
 dependencies = []
 
+[project.scripts]
+logic-counterexample = "logic_counterexample_engine.cli:main"
+
 [project.optional-dependencies]
 dev = [
     "pytest>=8"
