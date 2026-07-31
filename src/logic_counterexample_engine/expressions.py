@@ -55,3 +55,24 @@ class Var(Expr):
 
     def __str__(self) -> str:
         return self.name
+
+
+@dataclass(frozen=True)
+class Negation(Expr):
+    """The negation of an expression, such as ¬A."""
+
+    operand: Expr
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.operand, Expr):
+            raise TypeError("Negation requires a logical expression.")
+
+    def evaluate(self, assignment: TruthAssignment) -> bool:
+        return not self.operand.evaluate(assignment)
+
+    def variables(self) -> set[str]:
+        return self.operand.variables()
+
+    def __str__(self) -> str:
+        return f"¬{self.operand}"
+
