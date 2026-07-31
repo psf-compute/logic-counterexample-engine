@@ -76,3 +76,28 @@ class Negation(Expr):
     def __str__(self) -> str:
         return f"¬{self.operand}"
 
+
+@dataclass(frozen=True)
+class Conjunction(Expr):
+    """A conjunction of two expressions, such as A ∧ B."""
+
+    left: Expr
+    right: Expr
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.left, Expr) or not isinstance(self.right, Expr):
+            raise TypeError(
+                "Conjunction requires two logical expressions."
+            )
+
+    def evaluate(self, assignment: TruthAssignment) -> bool:
+        return (
+            self.left.evaluate(assignment)
+            and self.right.evaluate(assignment)
+        )
+
+    def variables(self) -> set[str]:
+        return self.left.variables() | self.right.variables()
+
+    def __str__(self) -> str:
+        return f"({self.left} ∧ {self.right})"
