@@ -1,5 +1,5 @@
 """Tools for evaluating propositional logic and checking arguments."""
-
+from .argument import check_argument
 from .expressions import (
     Biconditional,
     Conjunction,
@@ -30,4 +30,5 @@ __all__ = [
     "check_validity",
     "generate_assignments",
     "parse_formula",
+    "check_argument",
 ]
