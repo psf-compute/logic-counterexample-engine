@@ -128,3 +128,35 @@ class Disjunction(Expr):
 
     def __str__(self) -> str:
         return f"({self.left} ∨ {self.right})"
+
+
+@dataclass(frozen=True)
+class Implication(Expr):
+    """An implication of two expressions, such as A → B."""
+
+    antecedent: Expr
+    consequent: Expr
+
+    def __post_init__(self) -> None:
+        if (
+            not isinstance(self.antecedent, Expr)
+            or not isinstance(self.consequent, Expr)
+        ):
+            raise TypeError(
+                "Implication requires two logical expressions."
+            )
+
+    def evaluate(self, assignment: TruthAssignment) -> bool:
+        return (
+            not self.antecedent.evaluate(assignment)
+            or self.consequent.evaluate(assignment)
+        )
+
+    def variables(self) -> set[str]:
+        return (
+            self.antecedent.variables()
+            | self.consequent.variables()
+        )
+
+    def __str__(self) -> str:
+        return f"({self.antecedent} → {self.consequent})"
